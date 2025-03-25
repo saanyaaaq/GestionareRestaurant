@@ -41,9 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GestionareComenziRestaurant.cs" />
-    <Compile Include="GestionareComenziRestaurant_FisierText.cs" />
-    <Compile Include="GetComenzi.cs" />
+    <Compile Include="GestionareComenzi_Memorie.cs" />
+    <Compile Include="GestionareComenzi_FisierText.cs" />
+    <Compile Include="GestionareMenu_Memorie.cs" />
+    <Compile Include="GestionareMenu_FisierText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
