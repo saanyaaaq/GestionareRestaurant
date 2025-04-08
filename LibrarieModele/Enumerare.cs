@@ -16,5 +16,14 @@ namespace LibrarieModele
             Masa4 = 4,
             Masa5 = 5,
         }
+
+        public enum StareComanda
+        {
+            InAsteptare,
+            InPreparare,
+            Gata,
+            Livrata,
+            Anulata
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -76,197 +76,254 @@ namespace GestionareRestaurant_WindowsForms_UI
             int yInputStart = 105;
 
             //setare proprietati
-            this.Size = new Size(1000, 700);
+            this.Size = new Size(1200, 800);
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Location = new Point(100, 100);
-            this.Font = new Font("Arial", 9, FontStyle.Italic);
-            this.ForeColor = Color.Navy;
-            this.Text = "Informatii comenzi restaurant";
+            this.Font = new Font("Segoe UI", 10, FontStyle.Regular);
+            this.ForeColor = Color.FromArgb(64, 64, 64);
+            this.Text = "Gestionare Comenzi Restaurant";
+            this.BackColor = Color.WhiteSmoke;
+
+            // Constants for layout
+            const int MARGIN_LEFT = 50;
+            const int MARGIN_TOP = 50;
+            const int LABEL_WIDTH = 150;
+            const int TEXTBOX_WIDTH = 250;
+            const int ERROR_LABEL_WIDTH = 200;
+            const int VERTICAL_SPACING = 45;
+            const int HORIZONTAL_SPACING = 30;
+            const int COLUMN_SPACING = 100;
+
+            int yInputStart = MARGIN_TOP + 20;
 
             // Prima coloană - Stânga
             //adaugare control de tip Label pentru 'IDComanda';
             lblIDComanda = new Label();
-            lblIDComanda.Text = "ID Comanda:";
-            lblIDComanda.Left = 100;
+            lblIDComanda.Text = "ID Comandă:";
+            lblIDComanda.Left = MARGIN_LEFT;
             lblIDComanda.Top = yInputStart;
-            lblIDComanda.ForeColor = Color.Navy;
+            lblIDComanda.Width = LABEL_WIDTH;
+            lblIDComanda.ForeColor = Color.FromArgb(0, 102, 204);
+            lblIDComanda.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             this.Controls.Add(lblIDComanda);
 
             txtIDComanda = new TextBox();
-            txtIDComanda.Left = 200;
+            txtIDComanda.Left = MARGIN_LEFT + LABEL_WIDTH + HORIZONTAL_SPACING;
             txtIDComanda.Top = yInputStart;
-            txtIDComanda.Width = 180;
+            txtIDComanda.Width = TEXTBOX_WIDTH;
+            txtIDComanda.Font = new Font("Segoe UI", 10, FontStyle.Regular);
             this.Controls.Add(txtIDComanda);
 
             eroareIDComanda = new Label();
-            eroareIDComanda.Left = 340;
+            eroareIDComanda.Left = MARGIN_LEFT + LABEL_WIDTH + HORIZONTAL_SPACING + TEXTBOX_WIDTH + HORIZONTAL_SPACING;
             eroareIDComanda.Top = yInputStart;
+            eroareIDComanda.Width = ERROR_LABEL_WIDTH;
             eroareIDComanda.ForeColor = Color.Red;
-            eroareIDComanda.AutoSize = true;
+            eroareIDComanda.Font = new Font("Segoe UI", 9, FontStyle.Italic);
             this.Controls.Add(eroareIDComanda);
 
             //adaugare control de tip Label pentru 'NrMasa';
             lblNrMasa = new Label();
-            lblNrMasa.Text = "Nr Masa:";
-            lblNrMasa.Left = 100;
-            lblNrMasa.Top = yInputStart + 30;
-            lblNrMasa.ForeColor = Color.Navy;
+            lblNrMasa.Text = "Număr Masă:";
+            lblNrMasa.Left = MARGIN_LEFT;
+            lblNrMasa.Top = yInputStart + VERTICAL_SPACING;
+            lblNrMasa.Width = LABEL_WIDTH;
+            lblNrMasa.ForeColor = Color.FromArgb(0, 102, 204);
+            lblNrMasa.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             this.Controls.Add(lblNrMasa);
 
             txtNrMasa = new TextBox();
-            txtNrMasa.Left = 200;
-            txtNrMasa.Top = yInputStart + 30;
-            txtNrMasa.Width = 180;
+            txtNrMasa.Left = MARGIN_LEFT + LABEL_WIDTH + HORIZONTAL_SPACING;
+            txtNrMasa.Top = yInputStart + VERTICAL_SPACING;
+            txtNrMasa.Width = TEXTBOX_WIDTH;
+            txtNrMasa.Font = new Font("Segoe UI", 10, FontStyle.Regular);
             this.Controls.Add(txtNrMasa);
 
             eroareNrMasa = new Label();
-            eroareNrMasa.Left = 340;
-            eroareNrMasa.Top = yInputStart + 30;
+            eroareNrMasa.Left = MARGIN_LEFT + LABEL_WIDTH + HORIZONTAL_SPACING + TEXTBOX_WIDTH + HORIZONTAL_SPACING;
+            eroareNrMasa.Top = yInputStart + VERTICAL_SPACING;
+            eroareNrMasa.Width = ERROR_LABEL_WIDTH;
             eroareNrMasa.ForeColor = Color.Red;
-            eroareNrMasa.AutoSize = true;
+            eroareNrMasa.Font = new Font("Segoe UI", 9, FontStyle.Italic);
             this.Controls.Add(eroareNrMasa);
 
             //adaugare control de tip Label pentru 'PretTotal';
             lblPretTotal = new Label();
-            lblPretTotal.Text = "Pret Total:";
-            lblPretTotal.Left = 100;
-            lblPretTotal.Top = yInputStart + 60;
-            lblPretTotal.ForeColor = Color.Navy;
+            lblPretTotal.Text = "Preț Total:";
+            lblPretTotal.Left = MARGIN_LEFT;
+            lblPretTotal.Top = yInputStart + (2 * VERTICAL_SPACING);
+            lblPretTotal.Width = LABEL_WIDTH;
+            lblPretTotal.ForeColor = Color.FromArgb(0, 102, 204);
+            lblPretTotal.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             this.Controls.Add(lblPretTotal);
 
             txtPretTotal = new TextBox();
-            txtPretTotal.Left = 200;
-            txtPretTotal.Top = yInputStart + 60;
-            txtPretTotal.Width = 180;
+            txtPretTotal.Left = MARGIN_LEFT + LABEL_WIDTH + HORIZONTAL_SPACING;
+            txtPretTotal.Top = yInputStart + (2 * VERTICAL_SPACING);
+            txtPretTotal.Width = TEXTBOX_WIDTH;
+            txtPretTotal.Font = new Font("Segoe UI", 10, FontStyle.Regular);
             this.Controls.Add(txtPretTotal);
 
             eroarePretTotal = new Label();
-            eroarePretTotal.Left = 340;
-            eroarePretTotal.Top = yInputStart + 60;
+            eroarePretTotal.Left = MARGIN_LEFT + LABEL_WIDTH + HORIZONTAL_SPACING + TEXTBOX_WIDTH + HORIZONTAL_SPACING;
+            eroarePretTotal.Top = yInputStart + (2 * VERTICAL_SPACING);
+            eroarePretTotal.Width = ERROR_LABEL_WIDTH;
             eroarePretTotal.ForeColor = Color.Red;
-            eroarePretTotal.AutoSize = true;
+            eroarePretTotal.Font = new Font("Segoe UI", 9, FontStyle.Italic);
             this.Controls.Add(eroarePretTotal);
 
             //adaugare control de tip Label pentru 'StareComanda';
             lblStareComanda = new Label();
-            lblStareComanda.Text = "Stare Comanda:";
-            lblStareComanda.Left = 100;
-            lblStareComanda.Top = yInputStart + 90;
-            lblStareComanda.ForeColor = Color.Navy;
+            lblStareComanda.Text = "Stare Comandă:";
+            lblStareComanda.Left = MARGIN_LEFT;
+            lblStareComanda.Top = yInputStart + (3 * VERTICAL_SPACING);
+            lblStareComanda.Width = LABEL_WIDTH;
+            lblStareComanda.ForeColor = Color.FromArgb(0, 102, 204);
+            lblStareComanda.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             this.Controls.Add(lblStareComanda);
 
             txtStareComanda = new TextBox();
-            txtStareComanda.Left = 200;
-            txtStareComanda.Top = yInputStart + 90;
-            txtStareComanda.Width = 180;
+            txtStareComanda.Left = MARGIN_LEFT + LABEL_WIDTH + HORIZONTAL_SPACING;
+            txtStareComanda.Top = yInputStart + (3 * VERTICAL_SPACING);
+            txtStareComanda.Width = TEXTBOX_WIDTH;
+            txtStareComanda.Font = new Font("Segoe UI", 10, FontStyle.Regular);
             this.Controls.Add(txtStareComanda);
 
             eroareStareComanda = new Label();
-            eroareStareComanda.Left = 340;
-            eroareStareComanda.Top = yInputStart + 90;
+            eroareStareComanda.Left = MARGIN_LEFT + LABEL_WIDTH + HORIZONTAL_SPACING + TEXTBOX_WIDTH + HORIZONTAL_SPACING;
+            eroareStareComanda.Top = yInputStart + (3 * VERTICAL_SPACING);
+            eroareStareComanda.Width = ERROR_LABEL_WIDTH;
             eroareStareComanda.ForeColor = Color.Red;
-            eroareStareComanda.AutoSize = true;
+            eroareStareComanda.Font = new Font("Segoe UI", 9, FontStyle.Italic);
             this.Controls.Add(eroareStareComanda);
 
             // A doua coloană - Dreapta
+            int rightColumnStart = this.Width / 2 + COLUMN_SPACING;
+
             //adaugare control de tip Label pentru 'FelPrincipal';
             lblFelPrincipal = new Label();
             lblFelPrincipal.Text = "Fel Principal:";
-            lblFelPrincipal.Left = 500;
+            lblFelPrincipal.Left = rightColumnStart;
             lblFelPrincipal.Top = yInputStart;
-            lblFelPrincipal.ForeColor = Color.Navy;
+            lblFelPrincipal.Width = LABEL_WIDTH;
+            lblFelPrincipal.ForeColor = Color.FromArgb(0, 102, 204);
+            lblFelPrincipal.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             this.Controls.Add(lblFelPrincipal);
 
             txtFelPrincipal = new TextBox();
-            txtFelPrincipal.Left = 600;
+            txtFelPrincipal.Left = rightColumnStart + LABEL_WIDTH + HORIZONTAL_SPACING;
             txtFelPrincipal.Top = yInputStart;
-            txtFelPrincipal.Width = 180;
+            txtFelPrincipal.Width = TEXTBOX_WIDTH;
+            txtFelPrincipal.Font = new Font("Segoe UI", 10, FontStyle.Regular);
             this.Controls.Add(txtFelPrincipal);
 
             eroareFelPrincipal = new Label();
-            eroareFelPrincipal.Left = 740;
+            eroareFelPrincipal.Left = rightColumnStart + LABEL_WIDTH + HORIZONTAL_SPACING + TEXTBOX_WIDTH + HORIZONTAL_SPACING;
             eroareFelPrincipal.Top = yInputStart;
+            eroareFelPrincipal.Width = ERROR_LABEL_WIDTH;
             eroareFelPrincipal.ForeColor = Color.Red;
-            eroareFelPrincipal.AutoSize = true;
+            eroareFelPrincipal.Font = new Font("Segoe UI", 9, FontStyle.Italic);
             this.Controls.Add(eroareFelPrincipal);
 
             //adaugare control de tip Label pentru 'Garnituri';
             lblGarnituri = new Label();
             lblGarnituri.Text = "Garnituri:";
-            lblGarnituri.Left = 500;
-            lblGarnituri.Top = yInputStart + 30;
-            lblGarnituri.ForeColor = Color.Navy;
+            lblGarnituri.Left = rightColumnStart;
+            lblGarnituri.Top = yInputStart + VERTICAL_SPACING;
+            lblGarnituri.Width = LABEL_WIDTH;
+            lblGarnituri.ForeColor = Color.FromArgb(0, 102, 204);
+            lblGarnituri.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             this.Controls.Add(lblGarnituri);
 
             txtGarnituri = new TextBox();
-            txtGarnituri.Left = 600;
-            txtGarnituri.Top = yInputStart + 30;
-            txtGarnituri.Width = 180;
+            txtGarnituri.Left = rightColumnStart + LABEL_WIDTH + HORIZONTAL_SPACING;
+            txtGarnituri.Top = yInputStart + VERTICAL_SPACING;
+            txtGarnituri.Width = TEXTBOX_WIDTH;
+            txtGarnituri.Font = new Font("Segoe UI", 10, FontStyle.Regular);
             this.Controls.Add(txtGarnituri);
 
             eroareGarnituri = new Label();
-            eroareGarnituri.Left = 740;
-            eroareGarnituri.Top = yInputStart + 30;
+            eroareGarnituri.Left = rightColumnStart + LABEL_WIDTH + HORIZONTAL_SPACING + TEXTBOX_WIDTH + HORIZONTAL_SPACING;
+            eroareGarnituri.Top = yInputStart + VERTICAL_SPACING;
+            eroareGarnituri.Width = ERROR_LABEL_WIDTH;
             eroareGarnituri.ForeColor = Color.Red;
-            eroareGarnituri.AutoSize = true;
+            eroareGarnituri.Font = new Font("Segoe UI", 9, FontStyle.Italic);
             this.Controls.Add(eroareGarnituri);
 
             //adaugare control de tip Label pentru 'Bautura';
             lblBautura = new Label();
-            lblBautura.Text = "Bautura:";
-            lblBautura.Left = 500;
-            lblBautura.Top = yInputStart + 60;
-            lblBautura.ForeColor = Color.Navy;
+            lblBautura.Text = "Băutură:";
+            lblBautura.Left = rightColumnStart;
+            lblBautura.Top = yInputStart + (2 * VERTICAL_SPACING);
+            lblBautura.Width = LABEL_WIDTH;
+            lblBautura.ForeColor = Color.FromArgb(0, 102, 204);
+            lblBautura.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             this.Controls.Add(lblBautura);
 
             txtBautura = new TextBox();
-            txtBautura.Left = 600;
-            txtBautura.Top = yInputStart + 60;
-            txtBautura.Width = 180;
+            txtBautura.Left = rightColumnStart + LABEL_WIDTH + HORIZONTAL_SPACING;
+            txtBautura.Top = yInputStart + (2 * VERTICAL_SPACING);
+            txtBautura.Width = TEXTBOX_WIDTH;
+            txtBautura.Font = new Font("Segoe UI", 10, FontStyle.Regular);
             this.Controls.Add(txtBautura);
 
             eroareBautura = new Label();
-            eroareBautura.Left = 740;
-            eroareBautura.Top = yInputStart + 60;
+            eroareBautura.Left = rightColumnStart + LABEL_WIDTH + HORIZONTAL_SPACING + TEXTBOX_WIDTH + HORIZONTAL_SPACING;
+            eroareBautura.Top = yInputStart + (2 * VERTICAL_SPACING);
+            eroareBautura.Width = ERROR_LABEL_WIDTH;
             eroareBautura.ForeColor = Color.Red;
-            eroareBautura.AutoSize = true;
+            eroareBautura.Font = new Font("Segoe UI", 9, FontStyle.Italic);
             this.Controls.Add(eroareBautura);
 
             //adaugare control de tip Label pentru 'Desert';
             lblDesert = new Label();
             lblDesert.Text = "Desert:";
-            lblDesert.Left = 500;
-            lblDesert.Top = yInputStart + 90;
-            lblDesert.ForeColor = Color.Navy;
+            lblDesert.Left = rightColumnStart;
+            lblDesert.Top = yInputStart + (3 * VERTICAL_SPACING);
+            lblDesert.Width = LABEL_WIDTH;
+            lblDesert.ForeColor = Color.FromArgb(0, 102, 204);
+            lblDesert.Font = new Font("Segoe UI", 10, FontStyle.Bold);
             this.Controls.Add(lblDesert);
 
             txtDesert = new TextBox();
-            txtDesert.Left = 600;
-            txtDesert.Top = yInputStart + 90;
-            txtDesert.Width = 180;
+            txtDesert.Left = rightColumnStart + LABEL_WIDTH + HORIZONTAL_SPACING;
+            txtDesert.Top = yInputStart + (3 * VERTICAL_SPACING);
+            txtDesert.Width = TEXTBOX_WIDTH;
+            txtDesert.Font = new Font("Segoe UI", 10, FontStyle.Regular);
             this.Controls.Add(txtDesert);
 
             eroareDesert = new Label();
-            eroareDesert.Left = 740;
-            eroareDesert.Top = yInputStart + 90;
+            eroareDesert.Left = rightColumnStart + LABEL_WIDTH + HORIZONTAL_SPACING + TEXTBOX_WIDTH + HORIZONTAL_SPACING;
+            eroareDesert.Top = yInputStart + (3 * VERTICAL_SPACING);
+            eroareDesert.Width = ERROR_LABEL_WIDTH;
             eroareDesert.ForeColor = Color.Red;
-            eroareDesert.AutoSize = true;
+            eroareDesert.Font = new Font("Segoe UI", 9, FontStyle.Italic);
             this.Controls.Add(eroareDesert);
 
             // Butoane
             Button btnAdauga = new Button();
             btnAdauga.Text = "Adaugă Comandă";
-            btnAdauga.Left = 270;
-            btnAdauga.Top = yInputStart + 130;
-            btnAdauga.Width = 120;
+            btnAdauga.Left = MARGIN_LEFT;
+            btnAdauga.Top = yInputStart + (4 * VERTICAL_SPACING);
+            btnAdauga.Width = 180;
+            btnAdauga.Height = 40;
+            btnAdauga.BackColor = Color.FromArgb(0, 102, 204);
+            btnAdauga.ForeColor = Color.White;
+            btnAdauga.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            btnAdauga.FlatStyle = FlatStyle.Flat;
             btnAdauga.Click += OnButtonAdaugaClicked;
             this.Controls.Add(btnAdauga);
 
             Button btnReseteaza = new Button();
             btnReseteaza.Text = "Resetează Lista";
-            btnReseteaza.Left = 410;
-            btnReseteaza.Top = yInputStart + 130;
-            btnReseteaza.Width = 120;
+            btnReseteaza.Left = MARGIN_LEFT + 200;
+            btnReseteaza.Top = yInputStart + (4 * VERTICAL_SPACING);
+            btnReseteaza.Width = 180;
+            btnReseteaza.Height = 40;
+            btnReseteaza.BackColor = Color.FromArgb(192, 192, 192);
+            btnReseteaza.ForeColor = Color.White;
+            btnReseteaza.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            btnReseteaza.FlatStyle = FlatStyle.Flat;
             btnReseteaza.Click += OnButtonRefreshClicked;
             this.Controls.Add(btnReseteaza);
 
@@ -438,14 +495,14 @@ namespace GestionareRestaurant_WindowsForms_UI
         {
             for (int i = this.Controls.Count - 1; i >= 0; i--)
             {
-                if (this.Controls[i] is Label &&
+                if (this.Controls[i] is Label && 
                     this.Controls[i] != lblIDComanda &&
-                    this.Controls[i] != lblNrMasa &&
+                    this.Controls[i] != lblNrMasa && 
                     this.Controls[i] != lblPretTotal &&
-                    this.Controls[i] != lblStareComanda &&
-                    this.Controls[i] != lblFelPrincipal &&
-                    this.Controls[i] != lblGarnituri &&
-                    this.Controls[i] != lblBautura &&
+                    this.Controls[i] != lblStareComanda && 
+                    this.Controls[i] != lblFelPrincipal && 
+                    this.Controls[i] != lblGarnituri && 
+                    this.Controls[i] != lblBautura && 
                     this.Controls[i] != lblDesert &&
                     this.Controls[i] != eroareIDComanda &&
                     this.Controls[i] != eroareNrMasa &&
@@ -468,7 +525,70 @@ namespace GestionareRestaurant_WindowsForms_UI
                 return;
             }
 
-            
+            // Adăugare headers
+            Label headerIDComanda = new Label();
+            headerIDComanda.Text = "ID Comandă";
+            headerIDComanda.Font = new Font("Arial", 10, FontStyle.Bold);
+            headerIDComanda.Left = DIMENSIUNE_PAS_X;
+            headerIDComanda.Top = 220;
+            headerIDComanda.Width = LATIME_CONTROL;
+            this.Controls.Add(headerIDComanda);
+
+            Label headerNrMasa = new Label();
+            headerNrMasa.Text = "Nr Masă";
+            headerNrMasa.Font = new Font("Arial", 10, FontStyle.Bold);
+            headerNrMasa.Left = 2 * DIMENSIUNE_PAS_X;
+            headerNrMasa.Top = 220;
+            headerNrMasa.Width = LATIME_CONTROL;
+            this.Controls.Add(headerNrMasa);
+
+            Label headerPretTotal = new Label();
+            headerPretTotal.Text = "Preț Total";
+            headerPretTotal.Font = new Font("Arial", 10, FontStyle.Bold);
+            headerPretTotal.Left = 3 * DIMENSIUNE_PAS_X;
+            headerPretTotal.Top = 220;
+            headerPretTotal.Width = LATIME_CONTROL;
+            this.Controls.Add(headerPretTotal);
+
+            Label headerStareComanda = new Label();
+            headerStareComanda.Text = "Stare Comandă";
+            headerStareComanda.Font = new Font("Arial", 10, FontStyle.Bold);
+            headerStareComanda.Left = 4 * DIMENSIUNE_PAS_X;
+            headerStareComanda.Top = 220;
+            headerStareComanda.Width = LATIME_CONTROL;
+            this.Controls.Add(headerStareComanda);
+
+            Label headerFelPrincipal = new Label();
+            headerFelPrincipal.Text = "Fel Principal";
+            headerFelPrincipal.Font = new Font("Arial", 10, FontStyle.Bold);
+            headerFelPrincipal.Left = 5 * DIMENSIUNE_PAS_X;
+            headerFelPrincipal.Top = 220;
+            headerFelPrincipal.Width = LATIME_CONTROL;
+            this.Controls.Add(headerFelPrincipal);
+
+            Label headerGarnituri = new Label();
+            headerGarnituri.Text = "Garnituri";
+            headerGarnituri.Font = new Font("Arial", 10, FontStyle.Bold);
+            headerGarnituri.Left = 6 * DIMENSIUNE_PAS_X;
+            headerGarnituri.Top = 220;
+            headerGarnituri.Width = LATIME_CONTROL;
+            this.Controls.Add(headerGarnituri);
+
+            Label headerBautura = new Label();
+            headerBautura.Text = "Băutură";
+            headerBautura.Font = new Font("Arial", 10, FontStyle.Bold);
+            headerBautura.Left = 7 * DIMENSIUNE_PAS_X;
+            headerBautura.Top = 220;
+            headerBautura.Width = LATIME_CONTROL;
+            this.Controls.Add(headerBautura);
+
+            Label headerDesert = new Label();
+            headerDesert.Text = "Desert";
+            headerDesert.Font = new Font("Arial", 10, FontStyle.Bold);
+            headerDesert.Left = 8 * DIMENSIUNE_PAS_X;
+            headerDesert.Top = 220;
+            headerDesert.Width = LATIME_CONTROL;
+            this.Controls.Add(headerDesert);
 
             lblsIDComanda = new Label[nrComenzi];
             lblsNrMasa = new Label[nrComenzi];
