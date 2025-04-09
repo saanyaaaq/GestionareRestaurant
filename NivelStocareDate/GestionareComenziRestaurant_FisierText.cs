@@ -20,12 +20,16 @@ namespace NivelStocareDate
 
         public void AddComanda(ComandaRestaurant comanda)
         {
-            // instructiunea 'using' va apela la final streamWriterFisierText.Close();
-            // al doilea parametru setat la 'true' al constructorului StreamWriter indica
-            // modul 'append' de deschidere al fisierului
-            using (StreamWriter streamWriterFisierText = new StreamWriter(numeFisier, true))
+            try
             {
-                streamWriterFisierText.WriteLine(comanda.ConversieLaSir_PentruFisier());
+                using (StreamWriter streamWriterFisierText = new StreamWriter(numeFisier, true))
+                {
+                    streamWriterFisierText.WriteLine(comanda.ConversieLaSir_PentruFisier());
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Eroare la scrierea în fișier: {ex.Message}");
             }
         }
 
