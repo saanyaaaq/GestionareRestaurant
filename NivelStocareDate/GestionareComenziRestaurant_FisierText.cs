@@ -11,68 +11,117 @@ namespace NivelStocareDate
 
         public GestionareComenziRestaurant_FisierText(string numeFisier)
         {
+            if (string.IsNullOrEmpty(numeFisier))
+                throw new ArgumentNullException(nameof(numeFisier), "Numele fișierului nu poate fi null sau gol.");
+
             this.numeFisier = numeFisier;
-            // se incearca deschiderea fisierului in modul OpenOrCreate
-            // astfel incat sa fie creat daca nu exista
-            Stream streamFisierText = File.Open(numeFisier, FileMode.OpenOrCreate);
-            streamFisierText.Close();
-        }
+            
+                // se incearca deschiderea fisierului in modul OpenOrCreate
+                // astfel incat sa fie creat daca nu exista
+                using (Stream streamFisierText = File.Open(numeFisier, FileMode.OpenOrCreate))
+                {
+                    // Fișierul este creat/deschis cu succes
+                }
+            }
+           
+        
 
         public void AddComanda(ComandaRestaurant comanda)
         {
-            try
-            {
+            if (comanda == null)
+                throw new ArgumentNullException(nameof(comanda), "Comanda nu poate fi null.");
+
+            
                 using (StreamWriter streamWriterFisierText = new StreamWriter(numeFisier, true))
                 {
-                    streamWriterFisierText.WriteLine(comanda.ConversieLaSir_PentruFisier());
+                    string linieComanda = comanda.ConversieLaSir_PentruFisier();
+                    if (!string.IsNullOrEmpty(linieComanda))
+                    {
+                        streamWriterFisierText.WriteLine(linieComanda);
+                    }
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Eroare la scrierea în fișier: {ex.Message}");
-            }
-        }
+           
+        
 
         public ComandaRestaurant[] GetComenzi(out int nrComenzi)
         {
             ComandaRestaurant[] comenzi = new ComandaRestaurant[NR_MAX_COMENZI];
+            nrComenzi = 0;
 
-            // instructiunea 'using' va apela streamReader.Close()
-            using (StreamReader streamReader = new StreamReader(numeFisier))
+            try
             {
-                string linieFisier;
-                nrComenzi = 0;
+                if (!File.Exists(numeFisier))
+                    return comenzi;
 
-                // citeste cate o linie si creaza un obiect de tip ComandaRestaurant
-                // pe baza datelor din linia citita
-                while ((linieFisier = streamReader.ReadLine()) != null)
+                using (StreamReader streamReader = new StreamReader(numeFisier))
                 {
-                    comenzi[nrComenzi++] = new ComandaRestaurant(linieFisier);
+                    string linieFisier;
+
+                    while ((linieFisier = streamReader.ReadLine()) != null && nrComenzi < NR_MAX_COMENZI)
+                    {
+                        if (!string.IsNullOrEmpty(linieFisier))
+                        {
+                            try
+                            {
+                                comenzi[nrComenzi] = new ComandaRestaurant(linieFisier);
+                                nrComenzi++;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"Eroare la procesarea liniei: {ex.Message}");
+                                continue;
+                            }
+                        }
+                    }
                 }
             }
-            
+            catch (Exception ex)
+            {
+                throw new IOException($"Eroare la citirea din fișier: {ex.Message}", ex);
+            }
+
             return comenzi;
         }
+
         public ComandaRestaurant GetComanda(int idComanda)
         {
-            // Folosește 'using' pentru a închide automat StreamReader
-            using (StreamReader streamReader = new StreamReader(numeFisier))
+            if (idComanda <= 0)
+                throw new ArgumentException("ID-ul comenzii trebuie să fie mai mare decât 0.", nameof(idComanda));
+
+            try
             {
-                string linieFisier;
+                if (!File.Exists(numeFisier))
+                    return null;
 
-                // Citește fiecare linie din fișier
-                while ((linieFisier = streamReader.ReadLine()) != null)
+                using (StreamReader streamReader = new StreamReader(numeFisier))
                 {
-                    // Creează un obiect de tip Comanda pe baza liniei citite
-                    ComandaRestaurant comanda = new ComandaRestaurant(linieFisier);
+                    string linieFisier;
 
-                    // Verifică dacă ID-ul comenzii corespunde
-                    if (comanda.IDComanda == idComanda)
-                        return comanda;
+                    while ((linieFisier = streamReader.ReadLine()) != null)
+                    {
+                        if (!string.IsNullOrEmpty(linieFisier))
+                        {
+                            try
+                            {
+                                ComandaRestaurant comanda = new ComandaRestaurant(linieFisier);
+                                if (comanda != null && comanda.IDComanda == idComanda)
+                                    return comanda;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"Eroare la procesarea liniei: {ex.Message}");
+                                continue;
+                            }
+                        }
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                throw new IOException($"Eroare la citirea din fișier: {ex.Message}", ex);
+            }
 
-            // Returnează null dacă nu a fost găsită nicio comandă cu ID-ul specificat
             return null;
         }
     }

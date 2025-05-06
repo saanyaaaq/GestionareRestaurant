@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibrarieModele;
 using NivelStocareDate;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
+
 
 namespace GestionareRestaurant_WindowsForms_UI
 {
@@ -19,10 +20,7 @@ namespace GestionareRestaurant_WindowsForms_UI
     {
         GestionareComenziRestaurant_FisierText adminComenzi;
        
-        private const int LATIME_CONTROL = 150;
-        private const int DIMENSIUNE_PAS_Y = 40;
-        private const int DIMENSIUNE_PAS_X = 160;
-
+        
         public Form1()
         {
             InitializeComponent();
@@ -50,7 +48,7 @@ namespace GestionareRestaurant_WindowsForms_UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            AfiseazaComenzi();
+            
         }
 
         private void buttonAdauga_Click(object sender, EventArgs e)
@@ -61,93 +59,65 @@ namespace GestionareRestaurant_WindowsForms_UI
 
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            AfiseazaComenzi();
+            ComandaRestaurant[] comenzi = adminComenzi.GetComenzi(out int nrComenzi);
+            AfisareComenziInControlDataGridView();   
         }
-        private void AfiseazaComenzi()
+  
+        private void AfisareComenziInControlDataGridView()
         {
-            // Получение массива заказов
+            dataGridComenzi.DataSource = null;
+
             ComandaRestaurant[] comenzi = adminComenzi.GetComenzi(out int nrComenzi);
 
-            // Создание массива меток для отображения данных
-            Label[,] lblsComenzi = new Label[nrComenzi, 8];
-
-            for (int i = 0; i < nrComenzi; i++)
+            if (comenzi.Length == 0)
             {
-                ComandaRestaurant comanda = comenzi[i];
-
-                // IDComanda
-                lblsComenzi[i, 0] = new Label();
-                lblsComenzi[i, 0].Width = LATIME_CONTROL;
-                lblsComenzi[i, 0].Text = comanda.IDComanda.ToString();
-                lblsComenzi[i, 0].Left = DIMENSIUNE_PAS_X;
-                lblsComenzi[i, 0].Top = (i + 2) * DIMENSIUNE_PAS_Y;
-                this.Controls.Add(lblsComenzi[i, 0]);
-
-                // NrMasa
-                lblsComenzi[i, 1] = new Label();
-                lblsComenzi[i, 1].Width = LATIME_CONTROL;
-                lblsComenzi[i, 1].Text = comanda.NrMasa.ToString();
-                lblsComenzi[i, 1].Left = 2 * DIMENSIUNE_PAS_X;
-                lblsComenzi[i, 1].Top = (i + 2) * DIMENSIUNE_PAS_Y;
-                this.Controls.Add(lblsComenzi[i, 1]);
-
-                // PretTotal
-                lblsComenzi[i, 2] = new Label();
-                lblsComenzi[i, 2].Width = LATIME_CONTROL;
-                lblsComenzi[i, 2].Text = comanda.PretTotal.ToString("F2");
-                lblsComenzi[i, 2].Left = 3 * DIMENSIUNE_PAS_X;
-                lblsComenzi[i, 2].Top = (i + 2) * DIMENSIUNE_PAS_Y;
-                this.Controls.Add(lblsComenzi[i, 2]);
-
-                // StareComanda
-                lblsComenzi[i, 3] = new Label();
-                lblsComenzi[i, 3].Width = LATIME_CONTROL;
-                lblsComenzi[i, 3].Text = comanda.StareComanda;
-                lblsComenzi[i, 3].Left = 4 * DIMENSIUNE_PAS_X;
-                lblsComenzi[i, 3].Top = (i + 2) * DIMENSIUNE_PAS_Y;
-                this.Controls.Add(lblsComenzi[i, 3]);
-
-                // FelPrincipal
-                lblsComenzi[i, 4] = new Label();
-                lblsComenzi[i, 4].Width = LATIME_CONTROL;
-                lblsComenzi[i, 4].Text = comanda.Menu.FelPrincipal;
-                lblsComenzi[i, 4].Left = 5 * DIMENSIUNE_PAS_X;
-                lblsComenzi[i, 4].Top = (i + 2) * DIMENSIUNE_PAS_Y;
-                this.Controls.Add(lblsComenzi[i, 4]);
-
-                // Garnitura
-                lblsComenzi[i, 5] = new Label();
-                lblsComenzi[i, 5].Width = LATIME_CONTROL;
-                lblsComenzi[i, 5].Text = comanda.Menu.Garnituri;
-                lblsComenzi[i, 5].Left = 6 * DIMENSIUNE_PAS_X;
-                lblsComenzi[i, 5].Top = (i + 2) * DIMENSIUNE_PAS_Y;
-                this.Controls.Add(lblsComenzi[i, 5]);
-
-                // Bautura
-                lblsComenzi[i, 6] = new Label();
-                lblsComenzi[i, 6].Width = LATIME_CONTROL;
-                lblsComenzi[i, 6].Text = comanda.Menu.Bautura;
-                lblsComenzi[i, 6].Left = 7 * DIMENSIUNE_PAS_X;
-                lblsComenzi[i, 6].Top = (i + 2) * DIMENSIUNE_PAS_Y;
-                this.Controls.Add(lblsComenzi[i, 6]);
-
-                // Desert
-                lblsComenzi[i, 7] = new Label();
-                lblsComenzi[i, 7].Width = LATIME_CONTROL;
-                lblsComenzi[i, 7].Text = comanda.Menu.Desert;
-                lblsComenzi[i, 7].Left = 8 * DIMENSIUNE_PAS_X;
-                lblsComenzi[i, 7].Top = (i + 2) * DIMENSIUNE_PAS_Y;
-                this.Controls.Add(lblsComenzi[i, 7]);
+                MessageBox.Show("Nu exista Comenzi in fisier!");
+                return;
             }
-        }
 
+            DataTable dataTable = new DataTable();
+
+            dataTable.Columns.Add("ID Comanda");
+            dataTable.Columns.Add("NrMasa");
+            dataTable.Columns.Add("PretTotal");
+            dataTable.Columns.Add("StareComanda");
+            dataTable.Columns.Add("FelPrincipal");
+            dataTable.Columns.Add("Garnituri");
+            dataTable.Columns.Add("Bautura");
+            dataTable.Columns.Add("Desert");
+            dataTable.Columns.Add("OptiuniComanda");
+
+
+            foreach (ComandaRestaurant comanda in comenzi )
+            {
+                DataRow row = dataTable.NewRow();
+                if (comanda == null)
+                    continue;
+                row["ID Comanda"] = comanda.IDComanda;
+                row["NrMasa"] = comanda.GetNrMasaText();
+                row["PretTotal"] = comanda.PretTotal.ToString("F2");
+                row["StareComanda"] = comanda.StareComanda;
+                row["FelPrincipal"] = comanda.Menu.FelPrincipal;
+                row["Garnituri"] = comanda.Menu.Garnituri;
+                row["Bautura"] = comanda.Menu.Bautura;
+                row["Desert"] = comanda.Menu.Desert;
+                row["OptiuniComanda"] = comanda.OptiuniMeniuToString();
+                dataTable.Rows.Add(row);
+            }
+
+            dataGridComenzi.DataSource = dataTable;
+        }
         private void buttonCautare_Click(object sender, EventArgs e)
         {
             Form3 form3 = new Form3();
             form3.ShowDialog();
         }
-
-       
     }
 }
+
+         
+
+       
+    
+
 

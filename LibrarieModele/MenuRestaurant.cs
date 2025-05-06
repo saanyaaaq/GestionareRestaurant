@@ -14,23 +14,35 @@
         Bautura = string.Empty;
         Desert = string.Empty;
         Descriere = string.Empty;
+
     }
 
     // Constructor cu parametri
     public MeniuRestaurant(string felPrincipal, string garnituri, string bautura, string desert)
     {
-        this.FelPrincipal = felPrincipal;
-        this.Garnituri = garnituri;
-        this.Bautura = bautura;
-        this.Desert = desert;
+        this.FelPrincipal = felPrincipal ?? string.Empty;
+        this.Garnituri = garnituri ?? string.Empty;
+        this.Bautura = bautura ?? string.Empty;
+        this.Desert = desert ?? string.Empty;
         this.Descriere = $"{felPrincipal}, {garnituri}, {bautura}, {desert}";
+
     }
 
     // Constructor care preia date dintr-o descriere
     public MeniuRestaurant(string descriere)
     {
+        if (string.IsNullOrEmpty(descriere))
+        {
+            FelPrincipal = string.Empty;
+            Garnituri = string.Empty;
+            Bautura = string.Empty;
+            Desert = string.Empty;
+            
+            return;
+        }
+
         var parts = descriere.Split(',');
-        if (parts.Length == 4)
+        if (parts.Length >= 4)
         {
             FelPrincipal = parts[0].Trim();
             Garnituri = parts[1].Trim();
@@ -44,7 +56,7 @@
             Bautura = string.Empty;
             Desert = string.Empty;
         }
-        Descriere = descriere;
+        
     }
 
     // Metodă pentru obținerea informațiilor despre meniu

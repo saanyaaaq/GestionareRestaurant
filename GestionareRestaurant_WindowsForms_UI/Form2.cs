@@ -1,6 +1,7 @@
 ﻿using LibrarieModele;
 using NivelStocareDate;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -11,14 +12,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static LibrarieModele.Enumerare;
 
 namespace GestionareRestaurant_WindowsForms_UI
 {
 
-    public partial class Form2: Form
+    public partial class Form2 : Form
     {
         private const int NR_MAX_CARACTERE = 15;
         GestionareComenziRestaurant_FisierText adminComenzi;
+
+        ArrayList optiuniSelectate = new ArrayList();
         public Form2()
         {
             InitializeComponent();
@@ -48,11 +52,10 @@ namespace GestionareRestaurant_WindowsForms_UI
                 return;
             }
 
-            try
-            {
+            
                 // Преобразование данных
                 int idComanda = int.Parse(txtIDComanda.Text);
-                Enumerare.Mese nrMasa = (Enumerare.Mese)Enum.Parse(typeof(Enumerare.Mese), txtNrMasa.Text);
+               // Enumerare.Mese nrMasa = (Enumerare.Mese)Enum.Parse(typeof(Enumerare.Mese), txtNrMasa.Text);
                 double pretTotal = double.Parse(txtPretTotal.Text);
                 string stareComanda = txtStareComanda.Text;
                 string felPrincipal = txtFelPrincipal.Text;
@@ -60,9 +63,13 @@ namespace GestionareRestaurant_WindowsForms_UI
                 string bautura = txtBautura.Text;
                 string desert = txtDesert.Text;
 
-                // Создание объектов
-                MeniuRestaurant meniu = new MeniuRestaurant(felPrincipal, garnituri, bautura, desert);
-                ComandaRestaurant comanda = new ComandaRestaurant(idComanda, nrMasa, pretTotal, stareComanda, meniu);
+                ArrayList OptiuniComanda = new ArrayList();
+                OptiuniComanda.AddRange(optiuniSelectate);
+                Mese nrMasa = GetNrMasa();
+
+            // Создание объектов
+            MeniuRestaurant meniu = new MeniuRestaurant(felPrincipal, garnituri, bautura, desert);
+                ComandaRestaurant comanda = new ComandaRestaurant(idComanda, nrMasa, pretTotal, stareComanda, meniu, OptiuniComanda);
 
                 // Добавление заказа
                 adminComenzi.AddComanda(comanda);
@@ -71,7 +78,7 @@ namespace GestionareRestaurant_WindowsForms_UI
 
                 // Очистка полей ввода
                 txtIDComanda.Clear();
-                txtNrMasa.Clear();
+                
                 txtPretTotal.Clear();
                 txtStareComanda.Clear();
                 txtFelPrincipal.Clear();
@@ -79,11 +86,8 @@ namespace GestionareRestaurant_WindowsForms_UI
                 txtBautura.Clear();
                 txtDesert.Clear();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"A apărut o eroare: {ex.Message}");
-            }
-        }
+            
+        
         public bool Prevalidare()
         {
             bool hasErrors = false;
@@ -94,11 +98,7 @@ namespace GestionareRestaurant_WindowsForms_UI
                 hasErrors = true;
             }
 
-            if (string.IsNullOrWhiteSpace(txtNrMasa.Text))
-            {
-                lblEroareNrMasa.Text = "Camp gol!";
-                hasErrors = true;
-            }
+           
 
             if (string.IsNullOrWhiteSpace(txtPretTotal.Text))
             {
@@ -149,11 +149,6 @@ namespace GestionareRestaurant_WindowsForms_UI
                 hasErrors = true;
             }
 
-            if (!Enum.TryParse<Enumerare.Mese>(txtNrMasa.Text, out _))
-            {
-                lblEroareNrMasa.Text = "Valoare invalida pentru masa!";
-                hasErrors = true;
-            }
 
             if (!double.TryParse(txtPretTotal.Text, out _))
             {
@@ -193,57 +188,6 @@ namespace GestionareRestaurant_WindowsForms_UI
 
             return hasErrors;
         }
-        private void buttonSalveaza_Click(object sender, EventArgs e)
-        {
-            // Сброс текста ошибок
-            lblEroareIDComanda.Text = "";
-            lblEroareNrMasa.Text = "";
-            lblEroarePretTotal.Text = "";
-            lblEroareStareComanda.Text = "";
-            lblEroareFelPrincipal.Text = "";
-            lblEroareGarnituri.Text = "";
-            lblEroareBautura.Text = "";
-            lblEroareDesert.Text = "";
-
-            // Проверка на ошибки
-            bool areEroriPrevalidare = Prevalidare();
-            bool areEroriValidare = Validare();
-
-            // Если есть ошибки, выходим из метода
-            if (areEroriPrevalidare || areEroriValidare)
-            {
-                return;
-            }
-
-            // Если ошибок нет, создаем и сохраняем заказ
-            try
-            {
-                int idComanda = int.Parse(txtIDComanda.Text);
-                Enumerare.Mese nrMasa = (Enumerare.Mese)Enum.Parse(typeof(Enumerare.Mese), txtNrMasa.Text);
-                double pretTotal = double.Parse(txtPretTotal.Text);
-                string stareComanda = txtStareComanda.Text;
-                string felPrincipal = txtFelPrincipal.Text;
-                string garnituri = txtGarnituri.Text;
-                string bautura = txtBautura.Text;
-                string desert = txtDesert.Text;
-
-                // Создаем объекты
-                MeniuRestaurant meniu = new MeniuRestaurant(felPrincipal, garnituri, bautura, desert);
-                ComandaRestaurant comanda = new ComandaRestaurant(idComanda, nrMasa, pretTotal, stareComanda, meniu);
-
-                // Сохраняем заказ
-                adminComenzi.AddComanda(comanda);
-
-                MessageBox.Show("Comanda a fost salvată cu succes!");
-
-                // Очистка полей ввода
-                ClearTextBoxes();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"A apărut o eroare: {ex.Message}");
-            }
-        }
 
         private void ClearTextBoxes()
         {
@@ -255,5 +199,33 @@ namespace GestionareRestaurant_WindowsForms_UI
                 }
             }
         }
+
+        private void CkbOptiuniComanda_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBoxControl = sender as CheckBox;
+
+            string optiuneSelectata = checkBoxControl.Text;
+
+            if (checkBoxControl.Checked)
+                optiuniSelectate.Add(optiuneSelectata);
+            else
+                optiuniSelectate.Remove(optiuneSelectata);
+        }
+
+        private Mese GetNrMasa()
+        {
+            if (rdbMasa1?.Checked == true)
+                return Mese.Masa1;
+            if (rdbMasa2?.Checked == true)
+                return Mese.Masa2;
+            if (rdbMasa3?.Checked == true)
+                return Mese.Masa3;
+            if (rdbMasa4?.Checked == true)
+                return Mese.Masa4;
+
+            return Mese.Masa5; // Implicit, dacă niciun alt buton nu este selectat
+        }
+
     }
 }
+
