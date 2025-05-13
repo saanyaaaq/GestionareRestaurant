@@ -1,6 +1,8 @@
 ﻿using LibrarieModele;
 using System;
+using System.Collections.Generic;
 using System.IO;
+
 
 namespace NivelStocareDate
 {
@@ -123,6 +125,27 @@ namespace NivelStocareDate
             }
 
             return null;
+        }
+        public bool UpdateComanda(ComandaRestaurant comandaActualizata)
+        {
+            ComandaRestaurant[]  comenzi = GetComenzi(out int NrComenzi);
+            bool actualizareCuSucces = false;
+
+            using (StreamWriter streamWriter = new StreamWriter(numeFisier, false))
+            {
+                for (int i=0;i<NrComenzi;i++)
+                { 
+                    ComandaRestaurant comandaPentruScriereInFisier = comenzi[i];
+                    if (comandaPentruScriereInFisier.IDComanda == comandaActualizata.IDComanda)
+                    {
+                        comandaPentruScriereInFisier = comandaActualizata;
+                        actualizareCuSucces = true;
+                    }
+                    streamWriter.WriteLine(comandaPentruScriereInFisier.ConversieLaSir_PentruFisier());
+
+                }
+            }
+            return actualizareCuSucces;
         }
     }
 }

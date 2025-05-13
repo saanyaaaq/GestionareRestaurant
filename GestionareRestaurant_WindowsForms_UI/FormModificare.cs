@@ -1,5 +1,4 @@
-﻿using LibrarieModele;
-using NivelStocareDate;
+﻿using NivelStocareDate;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,18 +11,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LibrarieModele;
 using static LibrarieModele.Enumerare;
+
 
 namespace GestionareRestaurant_WindowsForms_UI
 {
-
-    public partial class Form2 : Form
+    public partial class FormModificare : Form
     {
         private const int NR_MAX_CARACTERE = 15;
         GestionareComenziRestaurant_FisierText adminComenzi;
 
         ArrayList optiuniSelectate = new ArrayList();
-        public Form2()
+        public FormModificare(int idComanda)
         {
             InitializeComponent();
             string numeFisier = ConfigurationManager.AppSettings["NumeFisier"];
@@ -31,11 +31,76 @@ namespace GestionareRestaurant_WindowsForms_UI
             string caleCompletaFisier = locatieFisierSolutie + "\\" + numeFisier;
 
             adminComenzi = new GestionareComenziRestaurant_FisierText(caleCompletaFisier);
+
+            txtIDComanda.Text = idComanda.ToString();
+
+            SetareControale();
+        }
+        private void SetareControale()
+        {
+            ComandaRestaurant comanda = adminComenzi.GetComanda(Int32.Parse(txtIDComanda.Text));
+
+            if (comanda != null)
+            {
+                txtPretTotal.Text = comanda.PretTotal.ToString();
+                txtStareComanda.Text = comanda.StareComanda;
+                txtFelPrincipal.Text = comanda.Menu.FelPrincipal;
+                txtGarnituri.Text = comanda.Menu.Garnituri;
+                txtBautura.Text = comanda.Menu.Bautura;
+                txtDesert.Text = comanda.Menu.Desert;
+                foreach (var opt in gpbOptiuniComanda.Controls)
+                {
+                    if (opt is CheckBox)
+                    {
+                        var optiune = opt as CheckBox;
+                        foreach (String dis in comanda.OptiuniMeniu)
+                            if (optiune.Text == dis)
+                            {
+                                optiune.Checked = true;
+                            }
+                    }
+                }
+                switch (comanda.NrMasa)
+                {
+                    case Enumerare.Mese.Masa1:
+                        rdbMasa1.Checked = true;
+                        break;
+                    case Enumerare.Mese.Masa2:
+                        rdbMasa2.Checked = true;
+                        break;
+                    case Enumerare.Mese.Masa3:
+                        rdbMasa3.Checked = true;
+                        break;
+                    case Enumerare.Mese.Masa4:
+                        rdbMasa4.Checked = true;
+                        break;
+                    case Enumerare.Mese.Masa5:
+                        rdbMasa5.Checked = true;
+                        break;
+
+                }
+
+
+
+
+            }
+        }
+
+
+        private void CkbOptiuniComanda_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox checkBoxControl = sender as CheckBox;
+
+            string optiuneSelectata = checkBoxControl.Text;
+
+            if (checkBoxControl.Checked)
+                optiuniSelectate.Add(optiuneSelectata);
+            else
+                optiuniSelectate.Remove(optiuneSelectata);
         }
 
         private void buttonAdauga_Click(object sender, EventArgs e)
         {
-            // Сброс текста ошибок
             lblEroareIDComanda.Text = "";
             lblEroareNrMasa.Text = "";
             lblEroarePretTotal.Text = "";
@@ -52,43 +117,43 @@ namespace GestionareRestaurant_WindowsForms_UI
                 return;
             }
 
-            
-                // Преобразование данных
-                int idComanda = int.Parse(txtIDComanda.Text);
-               // Enumerare.Mese nrMasa = (Enumerare.Mese)Enum.Parse(typeof(Enumerare.Mese), txtNrMasa.Text);
-                double pretTotal = double.Parse(txtPretTotal.Text);
-                string stareComanda = txtStareComanda.Text;
-                string felPrincipal = txtFelPrincipal.Text;
-                string garnituri = txtGarnituri.Text;
-                string bautura = txtBautura.Text;
-                string desert = txtDesert.Text;
 
-                ArrayList OptiuniComanda = new ArrayList();
-                OptiuniComanda.AddRange(optiuniSelectate);
-                Mese nrMasa = GetNrMasa();
+            // Преобразование данных
+            int idComanda = int.Parse(txtIDComanda.Text);
+            // Enumerare.Mese nrMasa = (Enumerare.Mese)Enum.Parse(typeof(Enumerare.Mese), txtNrMasa.Text);
+            double pretTotal = double.Parse(txtPretTotal.Text);
+            string stareComanda = txtStareComanda.Text;
+            string felPrincipal = txtFelPrincipal.Text;
+            string garnituri = txtGarnituri.Text;
+            string bautura = txtBautura.Text;
+            string desert = txtDesert.Text;
+
+            ArrayList OptiuniComanda = new ArrayList();
+            OptiuniComanda.AddRange(optiuniSelectate);
+            Mese nrMasa = GetNrMasa();
 
             // Создание объектов
             MeniuRestaurant meniu = new MeniuRestaurant(felPrincipal, garnituri, bautura, desert);
-                ComandaRestaurant comanda = new ComandaRestaurant(idComanda, nrMasa, pretTotal, stareComanda, meniu, OptiuniComanda);
+            ComandaRestaurant comanda = new ComandaRestaurant(idComanda, nrMasa, pretTotal, stareComanda, meniu, OptiuniComanda);
 
-                // Добавление заказа
-                adminComenzi.AddComanda(comanda);
+            // Добавление заказа
+            adminComenzi.UpdateComanda(comanda);
 
-                MessageBox.Show("Comanda a fost adăugată cu succes!");
+            MessageBox.Show("Comanda a fost Modificata cu succes!");
 
-                // Очистка полей ввода
-                txtIDComanda.Clear();
-                
-                txtPretTotal.Clear();
-                txtStareComanda.Clear();
-                txtFelPrincipal.Clear();
-                txtGarnituri.Clear();
-                txtBautura.Clear();
-                txtDesert.Clear();
-            }
-            
-        
-        public bool Prevalidare()
+            // Очистка полей ввода
+            txtIDComanda.Clear();
+
+            txtPretTotal.Clear();
+            txtStareComanda.Clear();
+            txtFelPrincipal.Clear();
+            txtGarnituri.Clear();
+            txtBautura.Clear();
+            txtDesert.Clear();
+        }
+    
+
+    public bool Prevalidare()
         {
             bool hasErrors = false;
 
@@ -98,7 +163,7 @@ namespace GestionareRestaurant_WindowsForms_UI
                 hasErrors = true;
             }
 
-           
+
 
             if (string.IsNullOrWhiteSpace(txtPretTotal.Text))
             {
@@ -138,7 +203,6 @@ namespace GestionareRestaurant_WindowsForms_UI
 
             return hasErrors;
         }
-
         public bool Validare()
         {
             bool hasErrors = false;
@@ -188,30 +252,6 @@ namespace GestionareRestaurant_WindowsForms_UI
 
             return hasErrors;
         }
-
-        private void ClearTextBoxes()
-        {
-            foreach (Control control in this.Controls)
-            {
-                if (control is TextBox textBox)
-                {
-                    textBox.Text = string.Empty;
-                }
-            }
-        }
-
-        private void CkbOptiuniComanda_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox checkBoxControl = sender as CheckBox;
-
-            string optiuneSelectata = checkBoxControl.Text;
-
-            if (checkBoxControl.Checked)
-                optiuniSelectate.Add(optiuneSelectata);
-            else
-                optiuniSelectate.Remove(optiuneSelectata);
-        }
-
         private Mese GetNrMasa()
         {
             if (rdbMasa1?.Checked == true)
@@ -225,10 +265,5 @@ namespace GestionareRestaurant_WindowsForms_UI
 
             return Mese.Masa5; // Implicit, dacă niciun alt buton nu este selectat
         }
-
-        
-
-        
     }
 }
-

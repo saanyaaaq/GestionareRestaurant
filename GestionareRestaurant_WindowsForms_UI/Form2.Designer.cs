@@ -138,7 +138,7 @@
             // 
             // txtIDComanda
             // 
-            this.txtIDComanda.Location = new System.Drawing.Point(165, 69);
+            this.txtIDComanda.Location = new System.Drawing.Point(158, 69);
             this.txtIDComanda.Name = "txtIDComanda";
             this.txtIDComanda.Size = new System.Drawing.Size(100, 22);
             this.txtIDComanda.TabIndex = 8;
@@ -187,7 +187,7 @@
             // 
             // buttonAdauga
             // 
-            this.buttonAdauga.Location = new System.Drawing.Point(313, 238);
+            this.buttonAdauga.Location = new System.Drawing.Point(461, 245);
             this.buttonAdauga.Name = "buttonAdauga";
             this.buttonAdauga.Size = new System.Drawing.Size(110, 42);
             this.buttonAdauga.TabIndex = 16;
@@ -199,7 +199,7 @@
             // 
             this.lblEroareIDComanda.AutoSize = true;
             this.lblEroareIDComanda.ForeColor = System.Drawing.Color.Red;
-            this.lblEroareIDComanda.Location = new System.Drawing.Point(296, 47);
+            this.lblEroareIDComanda.Location = new System.Drawing.Point(296, 195);
             this.lblEroareIDComanda.Name = "lblEroareIDComanda";
             this.lblEroareIDComanda.Size = new System.Drawing.Size(0, 16);
             this.lblEroareIDComanda.TabIndex = 17;
@@ -208,7 +208,7 @@
             // 
             this.lblEroareNrMasa.AutoSize = true;
             this.lblEroareNrMasa.ForeColor = System.Drawing.Color.Red;
-            this.lblEroareNrMasa.Location = new System.Drawing.Point(296, 90);
+            this.lblEroareNrMasa.Location = new System.Drawing.Point(296, 78);
             this.lblEroareNrMasa.Name = "lblEroareNrMasa";
             this.lblEroareNrMasa.Size = new System.Drawing.Size(0, 16);
             this.lblEroareNrMasa.TabIndex = 18;
@@ -226,7 +226,7 @@
             // 
             this.lblEroareStareComanda.AutoSize = true;
             this.lblEroareStareComanda.ForeColor = System.Drawing.Color.Red;
-            this.lblEroareStareComanda.Location = new System.Drawing.Point(296, 167);
+            this.lblEroareStareComanda.Location = new System.Drawing.Point(296, 223);
             this.lblEroareStareComanda.Name = "lblEroareStareComanda";
             this.lblEroareStareComanda.Size = new System.Drawing.Size(0, 16);
             this.lblEroareStareComanda.TabIndex = 20;
@@ -235,7 +235,7 @@
             // 
             this.lblEroareDesert.AutoSize = true;
             this.lblEroareDesert.ForeColor = System.Drawing.Color.Red;
-            this.lblEroareDesert.Location = new System.Drawing.Point(310, 375);
+            this.lblEroareDesert.Location = new System.Drawing.Point(298, 343);
             this.lblEroareDesert.Name = "lblEroareDesert";
             this.lblEroareDesert.Size = new System.Drawing.Size(0, 16);
             this.lblEroareDesert.TabIndex = 21;
@@ -244,7 +244,7 @@
             // 
             this.lblEroareBautura.AutoSize = true;
             this.lblEroareBautura.ForeColor = System.Drawing.Color.Red;
-            this.lblEroareBautura.Location = new System.Drawing.Point(310, 337);
+            this.lblEroareBautura.Location = new System.Drawing.Point(296, 314);
             this.lblEroareBautura.Name = "lblEroareBautura";
             this.lblEroareBautura.Size = new System.Drawing.Size(0, 16);
             this.lblEroareBautura.TabIndex = 22;
@@ -253,7 +253,7 @@
             // 
             this.lblEroareGarnituri.AutoSize = true;
             this.lblEroareGarnituri.ForeColor = System.Drawing.Color.Red;
-            this.lblEroareGarnituri.Location = new System.Drawing.Point(310, 298);
+            this.lblEroareGarnituri.Location = new System.Drawing.Point(296, 286);
             this.lblEroareGarnituri.Name = "lblEroareGarnituri";
             this.lblEroareGarnituri.Size = new System.Drawing.Size(0, 16);
             this.lblEroareGarnituri.TabIndex = 23;
@@ -262,7 +262,7 @@
             // 
             this.lblEroareFelPrincipal.AutoSize = true;
             this.lblEroareFelPrincipal.ForeColor = System.Drawing.Color.Red;
-            this.lblEroareFelPrincipal.Location = new System.Drawing.Point(298, 251);
+            this.lblEroareFelPrincipal.Location = new System.Drawing.Point(296, 251);
             this.lblEroareFelPrincipal.Name = "lblEroareFelPrincipal";
             this.lblEroareFelPrincipal.Size = new System.Drawing.Size(0, 16);
             this.lblEroareFelPrincipal.TabIndex = 24;

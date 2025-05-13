@@ -112,6 +112,17 @@ namespace GestionareRestaurant_WindowsForms_UI
             Form3 form3 = new Form3();
             form3.ShowDialog();
         }
+
+        private void buttonModifica_Click(object sender, EventArgs e)
+        {
+            if (dataGridComenzi.CurrentRow == null)
+            {
+                MessageBox.Show("Selectati o comanda pentru a o modifica.");
+                return;
+            }
+            FormModificare form4 = new FormModificare(Convert.ToInt32(dataGridComenzi.CurrentRow.Cells[0].Value));
+            form4.ShowDialog();
+        }
     }
 }
 

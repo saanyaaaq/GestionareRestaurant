@@ -1,1 +1,1 @@
-3;Masa3;62;In Proces;Friptură  , Cartofi , Coca Cola, Tort;FaraCeapa FaraSare
+3;Masa1;62;In Proces;Friptură, Cartofi, Coca Cola, Tort;FaraSare NicioOptiune

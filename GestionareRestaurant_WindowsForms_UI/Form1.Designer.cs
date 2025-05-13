@@ -32,6 +32,7 @@
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.buttonCautare = new System.Windows.Forms.Button();
             this.dataGridComenzi = new System.Windows.Forms.DataGridView();
+            this.buttonModifica = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridComenzi)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,8 +74,19 @@
             this.dataGridComenzi.Name = "dataGridComenzi";
             this.dataGridComenzi.RowHeadersWidth = 51;
             this.dataGridComenzi.RowTemplate.Height = 24;
+            this.dataGridComenzi.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridComenzi.Size = new System.Drawing.Size(995, 400);
             this.dataGridComenzi.TabIndex = 10;
+            // 
+            // buttonModifica
+            // 
+            this.buttonModifica.Location = new System.Drawing.Point(13, 211);
+            this.buttonModifica.Name = "buttonModifica";
+            this.buttonModifica.Size = new System.Drawing.Size(75, 23);
+            this.buttonModifica.TabIndex = 11;
+            this.buttonModifica.Text = "Modifica ";
+            this.buttonModifica.UseVisualStyleBackColor = true;
+            this.buttonModifica.Click += new System.EventHandler(this.buttonModifica_Click);
             // 
             // Form1
             // 
@@ -83,6 +95,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(1709, 450);
+            this.Controls.Add(this.buttonModifica);
             this.Controls.Add(this.dataGridComenzi);
             this.Controls.Add(this.buttonCautare);
             this.Controls.Add(this.buttonRefresh);
@@ -102,6 +115,7 @@
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.Button buttonCautare;
         private System.Windows.Forms.DataGridView dataGridComenzi;
+        private System.Windows.Forms.Button buttonModifica;
     }
 }
 
